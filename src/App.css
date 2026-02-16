@@ -1,0 +1,164 @@
+/* App.css - Critical Fixes */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* App container */
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  background: #f5f7fa;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* When header is present */
+.app-container:has(.header-container) {
+  padding-top: 70px; /* Desktop header height */
+}
+
+/* Login page - no padding */
+.app-container.login-page {
+  padding-top: 0 !important;
+}
+
+/* Main content wrapper */
+.main-content-wrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 70px);
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  min-height: calc(100vh - 70px);
+  background: #f5f7fa;
+  position: relative;
+  width: 100%;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+}
+
+/* Content container */
+.content-container {
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==================== MOBILE RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .app-container:has(.header-container) {
+    padding-top: 60px; /* Mobile header height */
+  }
+  
+  .main-content-wrapper {
+    min-height: calc(100vh - 60px);
+  }
+  
+  .main-content {
+    min-height: calc(100vh - 60px);
+  }
+  
+  .content-container {
+    padding: 20px;
+  }
+}
+
+/* Mobile overlay for sidebar */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  backdrop-filter: blur(3px);
+  display: none;
+}
+
+/* Show overlay when sidebar is open on mobile */
+@media (max-width: 767px) {
+  .sidebar-overlay {
+    display: block;
+  }
+}
+
+/* Mobile menu button */
+.mobile-menu-toggle {
+  position: fixed;
+  top: 75px; /* Below header */
+  left: 15px;
+  z-index: 1100;
+  width: 44px;
+  height: 44px;
+  background: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+}
+
+/* Loading spinner */
+.app-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f7fa;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e0e0e0;
+  border-top: 5px solid #4CAF50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .app-container {
+    min-height: -webkit-fill-available;
+  }
+  
+  .main-content {
+    min-height: calc(-webkit-fill-available - 70px);
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      min-height: calc(-webkit-fill-available - 60px);
+    }
+  }
+}

@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* index.css or App.css - Add these emergency fixes */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Force header to be on top */
+.header-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 70px !important;
+  z-index: 1100 !important;
+  background: white !important;
+}
+
+/* Force sidebar positioning */
+.sidebar-container {
+  position: fixed !important;
+  top: 70px !important; /* BELOW the header */
+  left: 0 !important;
+  height: calc(100vh - 70px) !important; /* Viewport minus header */
+  z-index: 1000 !important;
+  background: linear-gradient(180deg, #1B5E20 0%, #2E7D32 100%) !important;
+}
+
+/* Main content should start after header */
+.app-container:has(.header-container) {
+  padding-top: 70px !important;
+  min-height: 100vh;
+}
+
+.main-content-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.main-content {
+  margin-left: 260px; /* Default sidebar width */
+  transition: margin-left 0.3s ease;
+  min-height: calc(100vh - 70px);
+  background: #f5f7fa;
+}
+
+/* When sidebar is collapsed */
+.sidebar-container.collapsed ~ .main-content {
+  margin-left: 80px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .header-container {
+    height: 60px !important;
+    z-index: 1100 !important;
+  }
+  
+  .sidebar-container {
+    top: 60px !important;
+    height: calc(100vh - 60px) !important;
+    z-index: 1000 !important;
+  }
+  
+  .app-container:has(.header-container) {
+    padding-top: 60px !important;
+  }
+  
+  .main-content {
+    margin-left: 0 !important;
+    min-height: calc(100vh - 60px);
+  }
+  
+  /* Show sidebar on mobile when not hidden */
+  .sidebar-container:not(.hidden-mobile) ~ .main-content {
+    margin-left: 200px !important;
+  }
+}
